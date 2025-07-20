@@ -10,7 +10,7 @@ import java.util.UUID;
 public class Post implements Serializable {
     @QuerySqlField(index = true)
     private UUID postId;
-    private String userId; // who created the post
+    private UUID userId;
     private String caption;
     private String image;
     private String content;
@@ -33,11 +33,11 @@ public class Post implements Serializable {
         return postId;
     }
 
-    public String getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 

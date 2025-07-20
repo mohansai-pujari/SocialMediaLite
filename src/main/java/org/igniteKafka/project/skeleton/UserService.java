@@ -1,13 +1,15 @@
 package org.igniteKafka.project.skeleton;
 
 import org.igniteKafka.project.model.User;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface UserService {
-    void createUser(User user);
-    void followUser(String userId, String targetUserId);
-    List<User> getFollowers(String userId);
-    List<User> getFollowing(String userId);
-    List<User> getFeedUsers(String userId);
+    ResponseEntity<Object> createUser(User user);
+    ResponseEntity<Object> followUser(String userName, String targetUserName);
+    List<User> getFollowers(String userName);
+    List<User> getFollowing(String userName);
+    List<User> getFeedUsers(String userName);
 }

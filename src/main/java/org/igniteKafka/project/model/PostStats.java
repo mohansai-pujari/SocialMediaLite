@@ -6,10 +6,11 @@ import org.igniteKafka.project.enums.ReactionType;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class PostStats implements Serializable {
     @QuerySqlField(index = true)
-    private String postId;
+    private UUID postId;
 
     @QuerySqlField
     private int totalComments;
@@ -19,11 +20,11 @@ public class PostStats implements Serializable {
 
     private Map<ReactionType, Integer> reactionBreakdown = new HashMap<>();
 
-    public String getPostId() {
+    public UUID getPostId() {
         return postId;
     }
 
-    public void setPostId(String postId) {
+    public void setPostId(UUID postId) {
         this.postId = postId;
     }
 

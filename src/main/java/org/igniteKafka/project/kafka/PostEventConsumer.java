@@ -8,12 +8,13 @@ import org.igniteKafka.project.model.PostEvent;
 import org.igniteKafka.project.model.PostStats;
 
 import java.util.Map;
+import java.util.UUID;
 
 public class PostEventConsumer {
 
     public void consume(PostEvent event) {
         Ignite ignite = Ignition.ignite();
-        IgniteCache<String, PostStats> statsCache = ignite.cache("POST_STATS_CACHE");
+        IgniteCache<UUID, PostStats> statsCache = ignite.cache("POST_STATS_CACHE");
 
         PostStats stats = statsCache.get(event.getPostId());
         if (stats == null) {

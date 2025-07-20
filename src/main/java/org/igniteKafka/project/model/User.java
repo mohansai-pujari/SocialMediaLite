@@ -3,14 +3,12 @@ package org.igniteKafka.project.model;
 import org.apache.ignite.cache.query.annotations.QuerySqlField;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Set;
+import java.util.UUID;
 
-// org.igniteKafka.project.model.User.java
 public class User implements Serializable {
     @QuerySqlField(index = true)
-    private String userId;
+    private UUID userId;
     private String userName;
     private String password;
     private String name;
@@ -19,11 +17,11 @@ public class User implements Serializable {
     private Set<String> followers = new HashSet<>();
     private Set<String> following = new HashSet<>();
 
-    public String getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 

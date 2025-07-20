@@ -4,19 +4,20 @@ import org.igniteKafka.project.model.PostStats;
 import org.igniteKafka.project.model.User;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface RealTimeMonitoringService {
 
-    void updatePostStats(String postId);
+    void updatePostStats(UUID postId);
 
-    PostStats getPostStats(String postId);
+    PostStats getPostStats(UUID postId);
 
-    int getFollowerCount(String userId);
+    int getFollowerCount(String userName);
 
-    int getFollowingCount(String userId);
+    int getFollowingCount(String userName);
 
-    List<User> getFollowerList(String userId);
+    List<User> getFollowerList(String userName);
 
-    List<User> getFollowingList(String userId);
+    List<User> getFollowingList(String userName);
 
 }

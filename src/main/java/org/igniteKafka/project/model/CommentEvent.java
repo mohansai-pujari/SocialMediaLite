@@ -3,25 +3,26 @@ package org.igniteKafka.project.model;
 import org.igniteKafka.project.enums.ReactionType;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 public class CommentEvent implements Serializable {
-    private String postId;
-    private String userId;
+    private UUID postId;
+    private UUID userId;
     private String comment;
 
-    public String getPostId() {
+    public UUID getPostId() {
         return postId;
     }
 
-    public void setPostId(String postId) {
+    public void setPostId(UUID postId) {
         this.postId = postId;
     }
 
-    public String getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 

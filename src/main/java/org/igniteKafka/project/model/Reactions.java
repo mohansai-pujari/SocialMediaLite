@@ -5,13 +5,14 @@ import org.igniteKafka.project.enums.ReactionType;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 public class Reactions implements Serializable {
     private ReactionType reactionType;
     private long count;
-    private Set<String> usersReacted = new HashSet<>();
+    private Set<UUID> usersReacted = new HashSet<>();
 
-    public void addReaction(String userId) {
+    public void addReaction(UUID userId) {
         if (usersReacted.add(userId)) {
             count++;
         }
@@ -33,11 +34,11 @@ public class Reactions implements Serializable {
         this.count = count;
     }
 
-    public Set<String> getUsersReacted() {
+    public Set<UUID> getUsersReacted() {
         return usersReacted;
     }
 
-    public void setUsersReacted(Set<String> usersReacted) {
+    public void setUsersReacted(Set<UUID> usersReacted) {
         this.usersReacted = usersReacted;
     }
 }

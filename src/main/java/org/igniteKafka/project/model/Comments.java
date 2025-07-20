@@ -3,11 +3,12 @@ package org.igniteKafka.project.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Comments implements Serializable {
-    private String commentId;
-    private String postId;
-    private String userId;
+    private UUID commentId;
+    private UUID postId;
+    private UUID userId;
     private String comment;
     private List<Comments> childComments = new ArrayList<>();
 
@@ -15,27 +16,27 @@ public class Comments implements Serializable {
         childComments.add(child);
     }
 
-    public String getCommentId() {
+    public UUID getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(String commentId) {
+    public void setCommentId(UUID commentId) {
         this.commentId = commentId;
     }
 
-    public String getPostId() {
+    public UUID getPostId() {
         return postId;
     }
 
-    public void setPostId(String postId) {
+    public void setPostId(UUID postId) {
         this.postId = postId;
     }
 
-    public String getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 

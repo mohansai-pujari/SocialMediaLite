@@ -4,6 +4,8 @@ import org.igniteKafka.project.dao.UserDao;
 import org.igniteKafka.project.model.User;
 import org.igniteKafka.project.skeleton.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -15,12 +17,12 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public void createUser(User user) {
-        userDao.saveUser(user);
+    public ResponseEntity<Object> createUser(User user) {
+        return userDao.saveUser(user);
     }
 
     @Override
-    public void followUser(String userId, String targetUserId) {
+    public ResponseEntity<Object> followUser(String userId, String targetUserId) {
         User user = userDao.getUser(userId);
         User target = userDao.getUser(targetUserId);
 
@@ -31,6 +33,7 @@ public class UserServiceImpl implements UserService {
             userDao.updateUser(user);
             userDao.updateUser(target);
         }
+        return ResponseEntity.status(HttpStatus.OK).body(userId + " followed " + targetUserId);
     }
 
     @Override
@@ -46,13 +49,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getFeedUsers(String userId) {
-        User user = userDao.getUser(userId);
-        Set<String> visibleUserIds = new HashSet<>();
+    public List<User> getFeedUsers(String userName) {
+        User user = userDao.getUser(userName);
+        Set<String> visibleUserNames = new HashSet<>();
         if (user != null) {
-            visibleUserIds.add(userId);
-            visibleUserIds.addAll(user.getFollowing());
+            visibleUserNames.add(userName);
+            visibleUserNames.addAll(user.getFollowing());
         }
-        return userDao.getUsersByIds(visibleUserIds);
+        return userDao.getUsersByIds(visibleUserNames);
     }
 }

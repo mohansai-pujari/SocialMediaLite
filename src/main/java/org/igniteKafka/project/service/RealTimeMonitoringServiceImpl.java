@@ -11,7 +11,6 @@ import org.igniteKafka.project.model.User;
 import org.igniteKafka.project.skeleton.RealTimeMonitoringService;
 import org.springframework.stereotype.Service;
 
-import javax.cache.Cache;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -20,12 +19,12 @@ public class RealTimeMonitoringServiceImpl implements RealTimeMonitoringService 
 
     private final Ignite ignite = Ignition.ignite();
     private final IgniteCache<String, User> userCache = ignite.cache("USER_CACHE");
-    private final IgniteCache<String, PostStats> postStatsCache = ignite.cache("POST_STATS_CACHE");
+    private final IgniteCache<UUID, PostStats> postStatsCache = ignite.cache("POST_STATS_CACHE");
 
     @Override
-    public void updatePostStats(String postId) {
-        IgniteCache<String, Post> postCache = ignite.cache("POST_CACHE");
-        IgniteCache<String, PostStats> postStatsCache = ignite.cache("POST_STATS_CACHE");
+    public void updatePostStats(UUID postId) {
+        IgniteCache<UUID, Post> postCache = ignite.cache("POST_CACHE");
+        IgniteCache<UUID, PostStats> postStatsCache = ignite.cache("POST_STATS_CACHE");
 
         Post post = postCache.get(postId);
         if (post == null) return;
@@ -57,25 +56,25 @@ public class RealTimeMonitoringServiceImpl implements RealTimeMonitoringService 
 
 
     @Override
-    public PostStats getPostStats(String postId) {
+    public PostStats getPostStats(UUID postId) {
         return postStatsCache.get(postId);
     }
 
     @Override
-    public int getFollowerCount(String userId) {
-        User user = userCache.get(userId);
+    public int getFollowerCount(String userName) {
+        User user = userCache.get(userName);
         return (user != null && user.getFollowers() != null) ? user.getFollowers().size() : 0;
     }
 
     @Override
-    public int getFollowingCount(String userId) {
-        User user = userCache.get(userId);
+    public int getFollowingCount(String userName) {
+        User user = userCache.get(userName);
         return (user != null && user.getFollowing() != null) ? user.getFollowing().size() : 0;
     }
 
     @Override
-    public List<User> getFollowerList(String userId) {
-        User user = userCache.get(userId);
+    public List<User> getFollowerList(String userName) {
+        User user = userCache.get(userName);
         if (user == null || user.getFollowers() == null) return new ArrayList<>();
 
         Set<String> followerIds = new HashSet<>(user.getFollowers());
@@ -86,8 +85,8 @@ public class RealTimeMonitoringServiceImpl implements RealTimeMonitoringService 
     }
 
     @Override
-    public List<User> getFollowingList(String userId) {
-        User user = userCache.get(userId);
+    public List<User> getFollowingList(String userName) {
+        User user = userCache.get(userName);
         if (user == null || user.getFollowing() == null) return new ArrayList<>();
 
         Set<String> followingIds = new HashSet<>(user.getFollowing());
